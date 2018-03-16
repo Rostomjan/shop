@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.product-list {
+  list-style-type: none;
+  text-align: center;
+  display: inline;
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  color: #fff;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-color: #ff8a00;
+  border: 1px solid #ff8a00;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  border-radius: 3px;
+  user-select: none;
+  &:hover {
+    background-color: ghostwhite;
+    color: #ff8a00;
+  }
+}

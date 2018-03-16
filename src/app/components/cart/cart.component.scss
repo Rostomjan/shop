@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.container {
+  text-align: center;
+  background-color: gainsboro;
+  border: 2px solid grey;
+}
+
+.cart-header {
+  height: 25px;
+}
+
+.cart-wrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  height: 150px;
+}
+
+.product-list {
+  list-style-type: none;
+  text-align: center;
+  display: inline;
+}
