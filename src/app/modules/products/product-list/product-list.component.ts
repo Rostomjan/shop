@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { Product } from '../../interfaces';
-import { ProductsService, CartService } from '../../services';
+import { Product } from '../../../shared/interfaces';
+import { ProductsService } from '../products.service';
+import { CartService } from '../../../shared/services';
 
 @Component({
   selector: 'app-product-list',
@@ -9,8 +10,9 @@ import { ProductsService, CartService } from '../../services';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  products: Product[];
   @Output() added: EventEmitter<boolean> = new EventEmitter(true);
+
+  products: Product[];
 
   constructor(private productsService: ProductsService, private cartService: CartService) { }
 

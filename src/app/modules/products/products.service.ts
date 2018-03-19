@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Product, ECategories } from '../interfaces';
+import { Product, ECategories } from '../../shared/interfaces';
 
 @Injectable()
 export class ProductsService {
@@ -25,7 +25,7 @@ export class ProductsService {
     name: 'Life Extension, Mix Tablets, 240 Tablets',
     description: `For true full-spectrum nutrition, try Life Extension Mix — the most complete multi-nutrient formula on the market!`,
     price: 55.50,
-    category: ECategories.vitamins,
+    category: ECategories.minerals,
     isAvailable: true,
     brand: 'Life Extension',
     image: 'https://s3.images-iherb.com/lex/lex22552/y/1.jpg',

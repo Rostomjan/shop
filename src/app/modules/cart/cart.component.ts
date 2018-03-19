@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from '../../interfaces';
-import { CartService } from '../../services';
+import { Product } from '../../shared/interfaces';
+import { CartService } from '../../shared/services';
 
 @Component({
   selector: 'app-cart',
@@ -14,11 +14,11 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.products = this.cartService.recieveCartProducts();
+    this.products = this.cartService.receiveCartProducts();
   }
 
   onCartUpdate() {
-    this.products = this.cartService.recieveCartProducts();
+    this.products = this.cartService.receiveCartProducts();
   }
 
 }

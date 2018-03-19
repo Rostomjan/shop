@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { ProductListComponent, CartComponent } from './components';
+import { CartComponent } from './modules/cart/cart.component';
+import { ProductListComponent } from './modules/products/product-list/product-list.component';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,10 @@ import { ProductListComponent, CartComponent } from './components';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  cartFlag: false;
   @ViewChild('isNotEmpty') productListComponent: ProductListComponent;
   @ViewChild('cart') cartComponent: CartComponent;
+
+  cartFlag: false;
 
   constructor() {}
 

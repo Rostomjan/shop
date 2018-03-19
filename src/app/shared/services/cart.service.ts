@@ -14,7 +14,7 @@ export class CartService {
     }
   }
 
-  recieveCartProducts() {
+  receiveCartProducts() {
     return [...this.cart];
   }
 
