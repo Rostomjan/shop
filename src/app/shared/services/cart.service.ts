@@ -10,7 +10,10 @@ export class CartService {
 
   addToCart(product: Product): void {
     if (this.cart.every((item) => product.name !== item.name)) {
+      product.quntity = 1;
       this.cart.push(product);
+    } else {
+      product.quntity += 1;
     }
   }
 

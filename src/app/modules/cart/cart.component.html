@@ -10,8 +10,9 @@
   </div>
   <div class="cart-wrapper">
     <ul class="product-list" *ngFor="let product of products">
-      <li><img src="{{product.image}}" alt="{{product.name}}" width="75px"></li>
       <li>{{product.brand}}</li>
+      <li><img src="{{product.image}}" alt="{{product.name}}" width="75px"></li>
+      <li>Quantity: {{product.quntity}}</li>
     </ul>
   </div>
 </section>

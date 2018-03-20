@@ -6,6 +6,7 @@ export interface Product {
   isAvailable: boolean;
   brand: string;
   image: string;
+  quntity?: number;
 }
 
 export enum ECategories {
