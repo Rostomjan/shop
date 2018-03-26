@@ -1,9 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
+import { SharedModule } from '../shared/shared.module';
 
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductComponent } from './product-list/product/product.component';
-import { ProductsService } from './products.service';
+import { ProductService } from './products.service';
 
 @NgModule({
   declarations: [
@@ -11,11 +12,11 @@ import { ProductsService } from './products.service';
     ProductComponent
   ],
   imports: [
-    CommonModule
+    SharedModule
   ],
   exports: [
     ProductListComponent
   ],
-  providers: [ProductsService]
+  providers: [ProductService]
 })
 export class ProductsModule { }

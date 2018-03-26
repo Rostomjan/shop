@@ -1,6 +1,8 @@
-<ul class="product-list">
-  <li><img src="{{product.image}}" alt="{{product.name}}" width="300px"></li>
-  <li>{{product.name}}</li>
-  <li><p>{{product.price | currency}}</li>
-  <li><button class="btn" (click)="buy()">Buy</button></li>
-</ul>
+<mat-card class="product-list" [ngStyle]="{'color': product.isAvailable ? '' : 'maroon'}">
+  <img mat-card-image src="{{product.image}}" alt="{{product.name}}">
+  <mat-card-title>{{product.brand}}</mat-card-title>
+  <mat-card-content>{{product.price | currency}}</mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="buy()" disabled="{{!product.isAvailable}}">Buy</button>
+  </mat-card-actions>
+</mat-card>

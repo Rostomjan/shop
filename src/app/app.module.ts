@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { CartModule, ProductsModule } from './modules';
+import { CartModule, ProductsModule, CoreModule } from './modules';
 
 @NgModule({
   declarations: [
@@ -10,8 +10,9 @@ import { CartModule, ProductsModule } from './modules';
   ],
   imports: [
     BrowserModule,
+    CoreModule,
     CartModule,
-    ProductsModule
+    ProductsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

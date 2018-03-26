@@ -1,3 +1,5 @@
-<div *ngFor="let product of products">
-  <app-product class="grid-container" [product]="product" (selected)="onBuy($event)"></app-product>
-</div>
+<mat-grid-list cols="4" rowHeight="2:3" gutterSize="40px">
+  <mat-grid-tile *ngFor="let product of products">
+    <app-product class="grid-container" [product]="product" (selected)="onBuy($event)"></app-product>
+  </mat-grid-tile>
+</mat-grid-list>

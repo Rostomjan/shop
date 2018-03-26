@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { CartComponent } from './modules/cart/cart.component';
+import { CartListComponent } from './modules/cart/cart-list.component';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { CartComponent } from './modules/cart/cart.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @ViewChild('cart') cartComponent: CartComponent;
+  @ViewChild('cart') cartListComponent: CartListComponent;
 
   cartFlag: false;
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   onAdded(flag) {
     if (this.cartFlag) {
-      this.cartComponent.onCartUpdate();
+      this.cartListComponent.onCartUpdate();
     }
     this.cartFlag = flag;
   }

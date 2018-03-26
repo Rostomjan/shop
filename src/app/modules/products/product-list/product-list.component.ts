@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { Product } from '../../../shared/interfaces';
-import { ProductsService } from '../products.service';
-import { CartService } from '../../../shared/services';
+import { IProduct } from '../../shared/interfaces';
+import { ProductService } from '../products.service';
+import { CartService } from '../../core/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -12,15 +12,15 @@ import { CartService } from '../../../shared/services';
 export class ProductListComponent implements OnInit {
   @Output() added: EventEmitter<boolean> = new EventEmitter(true);
 
-  products: Product[];
+  products: IProduct[];
 
-  constructor(private productsService: ProductsService, private cartService: CartService) { }
+  constructor(private productService: ProductService, private cartService: CartService) { }
 
   ngOnInit() {
-    this.products = this.productsService.getProducts();
+    this.products = this.productService.getProducts();
   }
 
-  onBuy(product: Product): void {
+  onBuy(product: IProduct): void {
     this.cartService.addToCart(product);
     this.added.emit(true);
   }
