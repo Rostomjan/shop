@@ -24,6 +24,10 @@
   display: block;
 }
 
+::ng-deep .mat-button-wrapper > .mat-icon + span {
+  padding-left: 10px;
+}
+
 :host.active {
   background-color: bisque;
 }

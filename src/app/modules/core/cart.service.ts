@@ -25,13 +25,34 @@ export class CartService {
     return products.reduce((total, product) => (total += product.quantity * product.price), 0);
   }
 
-  receiveCartProducts(): IProduct[] {
-    return [...this.cart];
+  changeQuantity(product: IProduct, qty: number): {len: number, total: number} {
+    this.cart.forEach(item => {
+      if (item.name === product.name) {
+        product.quantity = qty;
+      }
+    });
+    return {len: this.getQuantity(this.cart), total: this.getTotal(this.cart)};
   }
 
-  removeProduct(product: IProduct): IProduct[] {
+  receiveCartProducts() {
+    return {
+      products: [...this.cart],
+      len: this.getQuantity(this.cart),
+      total: this.getTotal(this.cart)
+    };
+  }
+
+  removeProduct(product: IProduct) {
     const index = this.cart.indexOf(product);
     this.cart.splice(index, 1);
-    return this.receiveCartProducts();
+    return {
+      products: [...this.cart],
+      len: this.getQuantity(this.cart),
+      total: this.getTotal(this.cart)
+    };
+  }
+
+  removeAll() {
+    this.cart = [];
   }
 }

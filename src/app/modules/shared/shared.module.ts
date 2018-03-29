@@ -12,10 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { BorderThemeDirective } from './directives';
+
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [BorderThemeDirective],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -40,7 +41,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+
+    BorderThemeDirective
   ]
 })
 export class SharedModule { }

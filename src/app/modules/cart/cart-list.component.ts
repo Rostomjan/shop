@@ -17,27 +17,23 @@ export class CartListComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.products = this.cartService.receiveCartProducts();
-    this.len = this.cartService.getQuantity(this.products);
-    this.total = this.cartService.getTotal(this.products);
+    ( { products: this.products, len: this.len, total: this.total } = this.cartService.receiveCartProducts() );
   }
 
   onCartUpdate(): void {
-    this.products = this.cartService.receiveCartProducts();
-    this.len = this.cartService.getQuantity(this.products);
-    this.total = this.cartService.getTotal(this.products);
+    ( { products: this.products, len: this.len, total: this.total } = this.cartService.receiveCartProducts() );
   }
 
-  onchangedQty(): void {
-    this.products = this.cartService.receiveCartProducts();
-    this.len = this.cartService.getQuantity(this.products);
-    this.total = this.cartService.getTotal(this.products);
+  onChangedQty({product, qty}): void {
+    ( { len: this.len, total: this.total} = this.cartService.changeQuantity(product, qty) );
   }
 
   onRemove(product: IProduct): void {
-    this.products = this.cartService.removeProduct(product);
-    this.len = this.cartService.getQuantity(this.products);
-    this.total = this.cartService.getTotal(this.products);
+    ( { products: this.products, len: this.len, total: this.total } = this.cartService.removeProduct(product) );
   }
 
+  clearCart(): void {
+    this.cartService.removeAll();
+    [this.len, this.total, this.products] = [0, 0, []];
+  }
 }
