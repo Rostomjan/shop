@@ -13,10 +13,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { BorderThemeDirective } from './directives';
+import { OrderByPipe } from './pipes';
 
 
 @NgModule({
-  declarations: [BorderThemeDirective],
+  declarations: [BorderThemeDirective, OrderByPipe],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -43,7 +44,8 @@ import { BorderThemeDirective } from './directives';
     MatListModule,
     MatMenuModule,
 
-    BorderThemeDirective
+    BorderThemeDirective,
+    OrderByPipe
   ]
 })
 export class SharedModule { }

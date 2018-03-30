@@ -1,4 +1,5 @@
 <mat-card class="product-list" [ngStyle]="{'color': product.isAvailable ? '' : 'maroon'}" appBorderTheme>
+  <mat-card-subtitle>Category: {{product.category | uppercase}}</mat-card-subtitle>
   <img mat-card-image src="{{product.image}}" alt="{{product.name}}">
   <mat-card-title>{{product.brand}}</mat-card-title>
   <mat-card-content>{{product.price | currency}}</mat-card-content>

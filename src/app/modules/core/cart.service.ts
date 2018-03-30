@@ -25,34 +25,41 @@ export class CartService {
     return products.reduce((total, product) => (total += product.quantity * product.price), 0);
   }
 
-  changeQuantity(product: IProduct, qty: number): {len: number, total: number} {
+  changeQuantity(product: IProduct, qty: number): {products: Promise<IProduct[]>, len: number, total: number} {
     this.cart.forEach(item => {
       if (item.name === product.name) {
         product.quantity = qty;
       }
     });
-    return {len: this.getQuantity(this.cart), total: this.getTotal(this.cart)};
-  }
-
-  receiveCartProducts() {
+    const products: Promise<IProduct[]> =  new Promise((resolve) => resolve([...this.cart]));
     return {
-      products: [...this.cart],
+      products: products,
       len: this.getQuantity(this.cart),
       total: this.getTotal(this.cart)
     };
   }
 
-  removeProduct(product: IProduct) {
+  receiveCartProducts(): {products: Promise<IProduct[]>, len: number, total: number} {
+    const products: Promise<IProduct[]> =  new Promise((resolve) => resolve([...this.cart]));
+    return {
+      products: products,
+      len: this.getQuantity(this.cart),
+      total: this.getTotal(this.cart)
+    };
+  }
+
+  removeProduct(product: IProduct): {products: Promise<IProduct[]>, len: number, total: number} {
     const index = this.cart.indexOf(product);
     this.cart.splice(index, 1);
+    const products: Promise<IProduct[]> =  new Promise((resolve) => resolve([...this.cart]));
     return {
-      products: [...this.cart],
+      products: products,
       len: this.getQuantity(this.cart),
       total: this.getTotal(this.cart)
     };
   }
 
-  removeAll() {
+  removeAll(): void {
     this.cart = [];
   }
 }

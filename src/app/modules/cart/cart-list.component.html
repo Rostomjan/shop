@@ -9,7 +9,7 @@
     </mat-expansion-panel-header>
 
     <div class="cart-wrapper">
-      <ul class="product-list" *ngFor="let product of products">
+      <ul class="product-list" *ngFor="let product of products | async | orderBy: 'quantity' : false">
         <app-cart-item [product]="product" (changedQty)="onChangedQty($event)" (removed)="onRemove($event)"></app-cart-item>
       </ul>
     </div>

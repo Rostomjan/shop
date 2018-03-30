@@ -16,3 +16,9 @@ TASK 3:
 - created LocalStorageService, ConfigOptionsService, ConstantsService, GeneratorService with the required functionality;
 - registered the services above in the CoreModule and used in the TestCoreServicesComponent;
 - created the BorderThemeDirective with using @Input(), ElementRef/Renderer2 and it was used on the ProductComponent;
+
+TASK 4:
+- Used uppercase, currency pipes in the ProductComponent;
+- modified the ProductService using promises. Used async pipe in the ProductListComponent and CartListComponent;
+- created the "orderBy" pipe for sorting arrays with parameters - field of sorting and order;
+- registered the OrderByPipe in the SharedModule. Applied the "orderBy" pipe in the CartListComponent;

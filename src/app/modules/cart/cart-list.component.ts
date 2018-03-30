@@ -9,7 +9,7 @@ import { CartService } from '../core/cart.service';
   styleUrls: ['./cart-list.component.scss']
 })
 export class CartListComponent implements OnInit {
-  products: IProduct[];
+  products: Promise<IProduct[]>;
   len: number;
   total: number;
   panelOpenState = false;
@@ -25,7 +25,7 @@ export class CartListComponent implements OnInit {
   }
 
   onChangedQty({product, qty}): void {
-    ( { len: this.len, total: this.total} = this.cartService.changeQuantity(product, qty) );
+    ( { products: this.products, len: this.len, total: this.total } = this.cartService.changeQuantity(product, qty) );
   }
 
   onRemove(product: IProduct): void {
@@ -34,6 +34,6 @@ export class CartListComponent implements OnInit {
 
   clearCart(): void {
     this.cartService.removeAll();
-    [this.len, this.total, this.products] = [0, 0, []];
+    [this.len, this.total, this.products] = [0, 0, new Promise(resolve => resolve([]))];
   }
 }

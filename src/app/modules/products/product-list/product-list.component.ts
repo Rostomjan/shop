@@ -12,7 +12,7 @@ import { CartService } from '../../core/cart.service';
 export class ProductListComponent implements OnInit {
   @Output() added: EventEmitter<boolean> = new EventEmitter(true);
 
-  products: IProduct[];
+  products: Promise<IProduct[]>;
 
   constructor(private productService: ProductService, private cartService: CartService) { }
 

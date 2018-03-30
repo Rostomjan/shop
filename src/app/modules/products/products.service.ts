@@ -59,7 +59,10 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts(): Product[] {
-    return [...this.products];
+  getProducts(): Promise<Product[]> {
+    return new Promise(((resolve) => {
+      resolve([...this.products]);
+    }))
+      .catch(err => err);
   }
 }
