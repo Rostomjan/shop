@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
 
 import { ConfigOptionsService, ConstantsService, GeneratorService, LocalStorageService } from '../../core/services';
 
@@ -16,7 +16,7 @@ export class TestCoreServicesComponent implements OnInit {
 
   constructor(
     @Optional() private configOptionsService: ConfigOptionsService,
-    @Optional() private constantsService: ConstantsService,
+    @Optional() @Inject(ConstantsService) private constantsService: {app: string, ver: string},
     @Optional() private generatorService: GeneratorService,
     @Optional() private localStorageService: LocalStorageService,
   ) { }

@@ -12,7 +12,7 @@ import { ConfigOptionsService, ConstantsService, GeneratorService, LocalStorageS
   providers: [
     CartService,
     ConfigOptionsService,
-    {provide: ConstantsService, useValue: {App: 'ProductManager', Ver: '1.0'}},
+    {provide: ConstantsService, useValue: {app: 'ProductManager', ver: '1.0'}},
     {provide: GeneratorService, useValue: generateRandomSequence(10)},
     LocalStorageService
   ]
