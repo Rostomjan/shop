@@ -39,9 +39,6 @@ export class AppComponent implements OnInit {
   }
 
   private setPageTitlesAndMeta() {
-    this.router.navigate(['.', { outlets: { popup: null } }], {
-      relativeTo: this.route.parent
-    });
     this.sub = this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),

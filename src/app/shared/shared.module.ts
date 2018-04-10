@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatTableModule} from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { BorderThemeDirective } from './directives';
@@ -33,6 +34,7 @@ import { OrderByPipe } from './pipes';
     MatInputModule,
     MatListModule,
     MatMenuModule,
+    MatTableModule,
     MatTabsModule
   ],
   exports: [
@@ -48,6 +50,7 @@ import { OrderByPipe } from './pipes';
     MatInputModule,
     MatListModule,
     MatMenuModule,
+    MatTableModule,
     MatTabsModule,
 
     BorderThemeDirective,

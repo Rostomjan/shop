@@ -9,6 +9,7 @@ export class HeaderComponent implements OnInit {
   navLinks = [
     { label: 'Home', path: 'home', icon: 'home' },
     { label: 'Login', path: 'login', icon: '' },
+    { label: 'Admin', path: 'admin', icon: '' },
     { label: 'Cart', path: 'cart', icon: 'add_shopping_cart' }
   ];
 
