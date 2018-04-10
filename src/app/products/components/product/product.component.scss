@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  border: 3px solid grey;
+  &:hover {
+    border: 3px solid green;
+  }
+}
+
+.product-list {
+  text-align: center;
+}
+
+.mat-card-image {
+  cursor: pointer;
+}
+
+.mat-raised-button {
+  &:hover:not([disabled]) {
+    background-color: ghostwhite;
+    color: #ff8a00;
+  }
+}

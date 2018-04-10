@@ -1,6 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
-import { CartListComponent } from './modules/cart/cart-list.component';
+import { Subscription } from 'rxjs/Subscription';
+import { filter, map, switchMap } from 'rxjs/operators';
+
+import { CartListComponent } from './cart/components';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +15,20 @@ import { CartListComponent } from './modules/cart/cart-list.component';
 export class AppComponent implements OnInit {
   @ViewChild('cart') cartListComponent: CartListComponent;
 
+  private sub: Subscription;
   cartFlag: false;
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private titleService: Title,
+    private metaService: Meta
+  ) {
+    console.log('routes: ', JSON.stringify(router.config, undefined, 2));
+  }
 
   ngOnInit() {
+    this.setPageTitlesAndMeta();
   }
 
   onAdded(flag) {
@@ -23,4 +37,29 @@ export class AppComponent implements OnInit {
     }
     this.cartFlag = flag;
   }
+
+  private setPageTitlesAndMeta() {
+    this.router.navigate(['.', { outlets: { popup: null } }], {
+      relativeTo: this.route.parent
+    });
+    this.sub = this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => this.router.routerState.root),
+        map(route => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        filter(route => route.outlet === 'primary'),
+        switchMap(route => route.data)
+      )
+      .subscribe(
+        data => {
+          this.titleService.setTitle(data['title']);
+          this.metaService.addTags(data['meta']);
+        }
+      );
+    }
 }

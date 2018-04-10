@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.mat-card {
+  height: 85vh;
+}
+
+.mat-card-image {
+  width: 512px;
+  height: 512px;
+}
+
+.mat-card-actions {
+  text-align: center;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
