@@ -1,6 +1,6 @@
 <button mat-raised-button color="primary" (click)="addProduct()">Add a new product</button>
 
-<mat-table [dataSource]="dataSource | async">
+<mat-table [dataSource]="dataSource$ | async">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
@@ -16,9 +16,9 @@
     <mat-cell *matCellDef="let row">{{row.category}}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="quantity">
-    <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{row.quantity}}</mat-cell>
+  <ng-container matColumnDef="isAvailable">
+    <mat-header-cell *matHeaderCellDef>Availability</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.isAvailable ? 'Yes' : 'No'}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="edit">

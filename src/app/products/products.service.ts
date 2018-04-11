@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { map, catchError } from 'rxjs/operators';
+
 import { IProduct, ECategories, Product } from '../shared/interfaces';
 
 @Injectable()
@@ -17,7 +21,7 @@ export class ProductService {
       you won’t fully receive their benefits for optimal health and well-being.
       Two-Per-Day now contains three potent forms of selenium (SelenoExcell, Se-methyl-selenocysteine, and sodium selenite). Also newly
       included is apigenin, a powerful bioflavonoid found in many vegetables and fruits which boosts cell protection.`,
-      18.00,
+      18.05,
       ECategories.vitamins,
       true,
       'Life Extension',
@@ -130,18 +134,36 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts(): Promise<IProduct[]> {
-    return new Promise(((resolve) => {
-      resolve([...this.products]);
-    }))
-      .catch(err => err);
+  addProduct(product: IProduct): void {
+    product.id = this.generateId();
+    this.products.push(product);
   }
 
-  getProduct(id: string): Promise<IProduct> {
-    return new Promise(resolve => {
-      resolve(this.products.find(el => el.id === id));
-    })
-      .catch(err => err);
+  getProducts(): Observable<IProduct[]> {
+    return of(this.products);
+  }
+
+  getProduct(id: string): Observable<IProduct> {
+    return this.getProducts().pipe(
+      map((products: IProduct[]) => products.find(product => product.id === id)),
+      catchError(err => Observable.throw('Error in getProduct method'))
+    );
+  }
+
+  updateProduct(product: IProduct): void {
+    const index = this.products.findIndex(el => el.id === product.id);
+
+    if (index !== -1) {
+      this.products.splice(index, 1, product);
+    }
+  }
+
+  deleteProduct(id: string): void {
+    const index = this.products.findIndex(el => el.id === id);
+
+    if (index !== -1) {
+      this.products.splice(index, 1);
+    }
   }
 
   private generateId(): string {

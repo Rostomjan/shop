@@ -1,3 +1,32 @@
-<p>
-  product-form works!
-</p>
+<h3>Product Form</h3>
+<form class="product-form" #form="ngForm">
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Name" name="name" [(ngModel)]="product.name">
+  </mat-form-field>
+
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Description" name="description" [(ngModel)]="product.description">
+  </mat-form-field>
+
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Price" name="price" [(ngModel)]="product.price">
+  </mat-form-field>
+
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Category" name="category" [(ngModel)]="product.category">
+  </mat-form-field>
+
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Availability" name="isAvailable" [(ngModel)]="product.isAvailable">
+  </mat-form-field>
+
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Brand" name="brand" [(ngModel)]="product.brand">
+  </mat-form-field>
+
+  <mat-form-field class="product-full-width">
+    <input matInput placeholder="Image Url" name="image" [(ngModel)]="product.image">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="saveProduct($event)">Save</button><button mat-raised-button (click)="goBack($event)">Back</button>
+</form>

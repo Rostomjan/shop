@@ -1,5 +1,5 @@
 <mat-grid-list cols="4" rowHeight="5:9" gutterSize="40px">
-  <mat-grid-tile *ngFor="let product of products | async">
+  <mat-grid-tile *ngFor="let product of products$ | async">
     <app-product class="grid-container" [product]="product" (selected)="onBuy($event)" (detailed)="onDetail($event)"></app-product>
   </mat-grid-tile>
 </mat-grid-list>

@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules, ExtraOptions } from '@angular/router';
 
-// import { AdminModule } from '../admin/admin.module';
 import { LoginComponent, PageNotFoundComponent } from './components';
+
+const extraOptions: ExtraOptions = {
+  preloadingStrategy: PreloadAllModules,
+  enableTracing: false
+};
+
 
 const routes: Routes = [
   {
@@ -13,7 +18,6 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
-    // loadChildren: () => AdminModule,
     data: { title: 'Admin' }
   },
   {
@@ -29,7 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, extraOptions)],
   exports: [RouterModule]
 })
 export class CommonRoutingModule {}

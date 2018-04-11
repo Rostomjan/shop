@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IProduct, Product } from '../../../shared/interfaces';
+import {Observable} from 'rxjs/Observable';
+
+import { IProduct } from '../../../shared/interfaces';
 import { ProductService } from '../../../products/products.service';
 
 @Component({
@@ -10,8 +12,8 @@ import { ProductService } from '../../../products/products.service';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
-  displayedColumns = ['name', 'price', 'category', 'quantity', 'edit', 'delete'];
-  dataSource: Promise<IProduct[]>;
+  displayedColumns = ['name', 'price', 'category', 'isAvailable', 'edit', 'delete'];
+  dataSource$: Observable<IProduct[]>;
 
   constructor(
     private router: Router,
@@ -19,7 +21,7 @@ export class AdminDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataSource = this.productService.getProducts();
+    this.dataSource$ = this.productService.getProducts();
   }
 
   addProduct() {
@@ -27,11 +29,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteProduct(product) {
-    console.log('deleteProduct is ', product);
+    this.productService.deleteProduct(product.id);
   }
 
   editProduct(product) {
-    console.log('editProduct is ', product);
     const link = ['/admin/edit', product.id];
     this.router.navigate(link);
   }

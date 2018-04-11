@@ -15,7 +15,7 @@ export interface IProduct {
   isAvailable: boolean;
   brand: string;
   image: string;
-  reviews: Array<{name: string, msg: string}>;
+  reviews?: Array<{name: string, msg: string}>;
   quantity?: number;
 }
 
@@ -29,7 +29,7 @@ export class Product implements IProduct {
     public isAvailable: boolean,
     public brand: string,
     public image: string,
-    public reviews: Array<{name: string, msg: string}>,
-    quantity?: number
+    public reviews?: Array<{name: string, msg: string}>,
+    public quantity?: number
   ) { }
 }

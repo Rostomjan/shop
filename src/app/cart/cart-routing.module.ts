@@ -6,6 +6,7 @@ import { CartListComponent, CheckoutComponent, CartComponent } from './component
 const routes: Routes = [{
   path: 'cart',
   component: CartComponent,
+  data: { title: 'Cart' },
   children: [{
     path: '',
     component: CartListComponent

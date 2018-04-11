@@ -10,7 +10,7 @@ const routes: Routes = [
     canActivate: [],
     children: [
       {
-        path: 'admin',
+        path: '',
         canActivateChild: [],
         children: [
           { path: 'add', component: ProductFormComponent },

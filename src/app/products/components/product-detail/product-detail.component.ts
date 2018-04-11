@@ -2,8 +2,6 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
-import { filter, map } from 'rxjs/operators';
 
 import { IProduct, Product } from '../../../shared/interfaces';
 import { ProductService } from '../../products.service';

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
+
 import { IProduct } from '../../../shared/interfaces';
 import { ProductService } from '../../products.service';
 import { CartService } from '../../../core/cart.service';
@@ -13,7 +15,7 @@ import { CartService } from '../../../core/cart.service';
 export class ProductListComponent implements OnInit {
   @Output() added: EventEmitter<boolean> = new EventEmitter(true);
 
-  products: Promise<IProduct[]>;
+  products$: Observable<IProduct[]>;
 
   constructor(
     private productService: ProductService,
@@ -22,7 +24,7 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    this.products$ = this.productService.getProducts();
   }
 
   onBuy(product: IProduct): void {
