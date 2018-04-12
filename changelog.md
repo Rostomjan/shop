@@ -22,3 +22,11 @@ TASK 4:
 - modified the ProductService using promises. Used async pipe in the ProductListComponent and CartListComponent;
 - created the "orderBy" pipe for sorting arrays with parameters - field of sorting and order;
 - registered the OrderByPipe in the SharedModule. Applied the "orderBy" pipe in the CartListComponent;
+
+TASK 5:
+- Added the routing to the Products module;
+- Added the route to the specific product and organazed the reviews section in the axillary router-outlet;
+- Added the routing to the Cart module;
+- Created the functionality to make an order in the cart;
+- Implemented the Admin module with functionality to manage the products. The Admin module is lazy-loaded if user is signed up;
+- Used the LocalStorageService to store ordered products;

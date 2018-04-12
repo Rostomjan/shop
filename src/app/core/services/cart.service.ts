@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { IProduct } from '../shared/interfaces';
+import { IProduct } from '../../shared/interfaces';
 
 @Injectable()
 export class CartService {

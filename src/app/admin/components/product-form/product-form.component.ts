@@ -37,7 +37,7 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  saveProduct(e) {
+  saveProduct(e: MouseEvent): void {
     e.preventDefault();
     if (this.product.id) {
       this.productService.updateProduct(this.product);

@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { IProduct, Product } from '../../../shared/interfaces';
 import { ProductService } from '../../products.service';
-import { CartService } from '../../../core/cart.service';
+import { CartService } from '../../../core';
 
 @Component({
   selector: 'app-product-detail',

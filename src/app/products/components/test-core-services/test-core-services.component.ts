@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 
-import { ConfigOptionsService, ConstantsService, GeneratorService, LocalStorageService } from '../../../core/services';
+import { ConfigOptionsService, ConstantsService, GeneratorService, LocalStorageService } from '../../../core';
 
 @Component({
   selector: 'app-test-core-services',

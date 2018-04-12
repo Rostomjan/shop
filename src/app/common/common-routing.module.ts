@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules, ExtraOptions } from '@angular/router';
 
 import { LoginComponent, PageNotFoundComponent } from './components';
+import { AuthGuard } from '../core';
 
 const extraOptions: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
@@ -17,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canLoad: [AuthGuard],
     loadChildren: 'app/admin/admin.module#AdminModule',
     data: { title: 'Admin' }
   },

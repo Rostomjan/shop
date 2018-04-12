@@ -24,15 +24,15 @@ export class AdminDashboardComponent implements OnInit {
     this.dataSource$ = this.productService.getProducts();
   }
 
-  addProduct() {
+  addProduct(): void {
     this.router.navigate(['/admin/add']);
   }
 
-  deleteProduct(product) {
+  deleteProduct(product: IProduct): void {
     this.productService.deleteProduct(product.id);
   }
 
-  editProduct(product) {
+  editProduct(product: IProduct): void {
     const link = ['/admin/edit', product.id];
     this.router.navigate(link);
   }

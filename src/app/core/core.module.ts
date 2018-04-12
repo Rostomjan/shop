@@ -1,8 +1,16 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CartService } from './cart.service';
-import { ConfigOptionsService, ConstantsService, GeneratorService, LocalStorageService, generateRandomSequence } from './services';
+import {
+  AuthGuard,
+  AuthService,
+  CartService,
+  ConfigOptionsService,
+  ConstantsService,
+  GeneratorService,
+  LocalStorageService,
+  generateRandomSequence
+} from '.';
 
 @NgModule(<NgModule>{
   imports: [
@@ -10,6 +18,8 @@ import { ConfigOptionsService, ConstantsService, GeneratorService, LocalStorageS
   ],
   declarations: [],
   providers: [
+    AuthGuard,
+    AuthService,
     CartService,
     ConfigOptionsService,
     {provide: ConstantsService, useValue: {app: 'ProductManager', ver: '1.0'}},

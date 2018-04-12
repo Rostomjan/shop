@@ -23,9 +23,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private metaService: Meta
-  ) {
-    console.log('routes: ', JSON.stringify(router.config, undefined, 2));
-  }
+  ) {  }
 
   ngOnInit() {
     this.setPageTitlesAndMeta();

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IProduct } from '../../../shared/interfaces';
-import { CartService } from '../../../core/cart.service';
+import { CartService, LocalStorageService } from '../../../core';
 
 @Component({
   selector: 'app-cart-list',
@@ -13,11 +13,11 @@ export class CartListComponent implements OnInit {
   products: Promise<IProduct[]>;
   len: number;
   total: number;
-  panelOpenState = false;
 
   constructor(
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -42,6 +42,10 @@ export class CartListComponent implements OnInit {
   }
 
   checkout() {
+    this.products.then(items => {
+      const ordered = items;
+      this.localStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify(ordered));
+    });
     this.router.navigate(['/cart//checkout']);
   }
 }
