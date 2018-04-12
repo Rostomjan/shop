@@ -1,0 +1,14 @@
+footer {
+  width: 100%;
+  background-color: #458500;
+  margin: 0 auto;
+  .container {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    :first-child {
+      color: #fff;
+      padding: 2%;
+    }
+  }
+}

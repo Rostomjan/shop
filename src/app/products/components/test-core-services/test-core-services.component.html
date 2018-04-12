@@ -1,0 +1,49 @@
+<mat-list>
+  <h3 mat-subheader>LocalStorageService:</h3>
+  <p>The localStorage is {{ localSt | json }}</p>
+  <pre>The value is {{ content ? content : 'none' }}</pre>
+  <mat-form-field>
+    <input matInput type="text" #name placeholder="Item name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" #val placeholder="Item value">
+  </mat-form-field>
+
+  <button mat-button="primary" (click)="getItem(name.value)">Get</button>
+  <button mat-button="primary" (click)="setItem(name.value, val.value)">Set</button>
+  <button mat-button="primary" (click)="removeItem(name.value)">Remove</button>
+  <mat-divider></mat-divider>
+</mat-list>
+
+<mat-list>
+  <h3 mat-subheader>ConfigOptionsService:</h3>
+  <pre>{{ configContent | json }}</pre>
+  <mat-form-field>
+    <input matInput type="text" #configId placeholder="id">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" #configLogin placeholder="login">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" #configEmail placeholder="email">
+  </mat-form-field>
+
+  <button mat-button="primary" (click)="getConfig()">Get</button>
+  <button mat-button="primary" (click)="setConfig({id: configId.value, login: configLogin.value, email: configEmail.value})">Set</button>
+  <mat-divider></mat-divider>
+</mat-list>
+
+<mat-list>
+  <h3 mat-subheader>ConstantsService:</h3>
+  <pre>{{ constantContent | json }}</pre>
+  <mat-divider></mat-divider>
+</mat-list>
+
+<mat-list>
+  <h3 mat-subheader>GeneratorService:</h3>
+  <pre>{{ generatedContent }}</pre>
+  <mat-divider></mat-divider>
+</mat-list>

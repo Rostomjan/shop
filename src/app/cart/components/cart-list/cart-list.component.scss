@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  height: 90vh;
+}
+
+.cart-wrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 170px);
+  height: 100%;
+}
+
+.product-list {
+  text-align: center;
+}
+
+.material-icons {
+  font-size: 3em;
+  height: 100%;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-icon + span {
+  padding-left: 10px;
+}

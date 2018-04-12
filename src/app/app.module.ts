@@ -1,21 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { ProductComponent, ProductListComponent, CartComponent } from './components';
-import { CartService, ProductsService } from './services';
+import { CartModule } from './cart/cart.module';
+import { CoreModule } from './core/core.module';
+import { ProductsModule } from './products/products.module';
+import { CommonModules } from './common/common.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProductComponent,
-    ProductListComponent,
-    CartComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    CoreModule,
+    ProductsModule,
+    CartModule,
+
+    CommonModules
   ],
-  providers: [CartService, ProductsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

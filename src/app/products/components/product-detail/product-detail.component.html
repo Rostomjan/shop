@@ -1,0 +1,15 @@
+<mat-card *ngIf="product" class="product-list">  
+  <img mat-card-image src="{{product.image}}" alt="{{product.name}}">
+  <div>
+    <mat-card-subtitle>Category: {{product.category | uppercase}}</mat-card-subtitle>
+    <mat-card-title>{{product.name}}</mat-card-title>
+    <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>
+    <mat-card-content>{{product.description}}</mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="buy()" disabled="{{!product.isAvailable}}">Buy</button>
+    </mat-card-actions>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="showReviews()">Show reviews</button>
+    </mat-card-actions>    
+  </div>
+</mat-card>
