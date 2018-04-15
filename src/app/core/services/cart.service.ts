@@ -31,18 +31,18 @@ export class CartService {
         product.quantity = qty;
       }
     });
-    const products: Promise<IProduct[]> =  new Promise((resolve) => resolve([...this.cart]));
+    const products: Promise<IProduct[]> =  Promise.resolve([...this.cart]);
     return {
-      products: products,
+      products,
       len: this.getQuantity(this.cart),
       total: this.getTotal(this.cart)
     };
   }
 
   receiveCartProducts(): {products: Promise<IProduct[]>, len: number, total: number} {
-    const products: Promise<IProduct[]> =  new Promise((resolve) => resolve([...this.cart]));
+    const products: Promise<IProduct[]> =  Promise.resolve([...this.cart]);
     return {
-      products: products,
+      products,
       len: this.getQuantity(this.cart),
       total: this.getTotal(this.cart)
     };
@@ -51,9 +51,9 @@ export class CartService {
   removeProduct(product: IProduct): {products: Promise<IProduct[]>, len: number, total: number} {
     const index = this.cart.indexOf(product);
     this.cart.splice(index, 1);
-    const products: Promise<IProduct[]> =  new Promise((resolve) => resolve([...this.cart]));
+    const products: Promise<IProduct[]> =  Promise.resolve([...this.cart]);
     return {
-      products: products,
+      products,
       len: this.getQuantity(this.cart),
       total: this.getTotal(this.cart)
     };

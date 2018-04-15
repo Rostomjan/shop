@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {
   AuthGuard,
   AuthService,
-  CartService,
+  CartPromiseService,
   ConfigOptionsService,
   ConstantsService,
   GeneratorService,
@@ -20,7 +20,7 @@ import {
   providers: [
     AuthGuard,
     AuthService,
-    CartService,
+    CartPromiseService,
     ConfigOptionsService,
     {provide: ConstantsService, useValue: {app: 'ProductManager', ver: '1.0'}},
     {provide: GeneratorService, useValue: generateRandomSequence(10)},

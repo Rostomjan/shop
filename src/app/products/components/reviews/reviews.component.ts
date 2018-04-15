@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { map, catchError } from 'rxjs/operators';
 
-import { ProductService } from '../../products.service';
+import { ProductService } from '../../products.service';  // ---------------------------
+import { ProductObservableService } from '../../product-observable.service';
 
 @Component({
   selector: 'app-reviews',
@@ -16,13 +17,14 @@ export class ReviewsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private productObservableService: ProductObservableService,
     private productsService: ProductService
   ) { }
 
   ngOnInit() {
     if (this.router.url.includes('/products/')) {
       const id = this.router.url.split('/products/').join('').split('(')[0];
-      this.productsService.getProducts()
+      this.productObservableService.getProducts()
         .pipe(
           map(products => products.find(el => el.id === id)),
           catchError(err => Observable.throw('There are not any reviews'))

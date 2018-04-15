@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IProduct } from '../../../shared/interfaces';
-import { CartService, LocalStorageService } from '../../../core';
+import { CartPromiseService, LocalStorageService } from '../../../core';
 
 @Component({
   selector: 'app-cart-list',
@@ -10,42 +10,45 @@ import { CartService, LocalStorageService } from '../../../core';
   styleUrls: ['./cart-list.component.scss']
 })
 export class CartListComponent implements OnInit {
-  products: Promise<IProduct[]>;
+  products: IProduct[];
   len: number;
   total: number;
 
   constructor(
     private router: Router,
-    private cartService: CartService,
+    private cartPromiseService: CartPromiseService,
     private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
-    ( { products: this.products, len: this.len, total: this.total } = this.cartService.receiveCartProducts() );
+    this.getCart().catch(err => console.log(err));
   }
 
   onCartUpdate(): void {
-    ( { products: this.products, len: this.len, total: this.total } = this.cartService.receiveCartProducts() );
+    this.getCart().catch(err => console.log(err));
   }
 
-  onChangedQty({product, qty}): void {
-    ( { products: this.products, len: this.len, total: this.total } = this.cartService.changeQuantity(product, qty) );
+  onChangedQty(product: IProduct): void {
+    this.cartPromiseService.updateCart(product)
+      .then(() => this.getCart());
   }
 
   onRemove(product: IProduct): void {
-    ( { products: this.products, len: this.len, total: this.total } = this.cartService.removeProduct(product) );
+    this.cartPromiseService.removeProduct(product)
+      .then(() => this.getCart());
   }
 
   clearCart(): void {
-    this.cartService.removeAll();
-    [this.len, this.total, this.products] = [0, 0, new Promise(resolve => resolve([]))];
+    this.cartPromiseService.removeAll(this.products);
+    [this.len, this.total, this.products] = [0, 0, []];
   }
 
   checkout() {
-    this.products.then(items => {
-      const ordered = items;
-      this.localStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify(ordered));
-    });
+    this.localStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify([...this.products]));
     this.router.navigate(['/cart//checkout']);
+  }
+
+  private async getCart() {
+    ( { products: this.products, len: this.len, total: this.total } = await this.cartPromiseService.receiveCartProducts() );
   }
 }

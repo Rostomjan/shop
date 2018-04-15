@@ -9,7 +9,7 @@ import { IProduct } from '../../../shared/interfaces';
 })
 export class CartItemComponent implements OnInit {
   @Input() product: IProduct;
-  @Output() changedQty: EventEmitter<{product: IProduct, qty: number}> = new EventEmitter<{product: IProduct, qty: number}>();
+  @Output() changedQty: EventEmitter<IProduct> = new EventEmitter<IProduct>();
   @Output() removed: EventEmitter<IProduct> = new EventEmitter<IProduct>();
 
   @HostBinding('class') attrClass;
@@ -30,7 +30,8 @@ export class CartItemComponent implements OnInit {
   }
 
   onChangeQty(qty: number): void {
-    this.changedQty.emit({product: this.product, qty: +qty});
+    const changedProduct: IProduct = { ...this.product, quantity: +qty };
+    this.changedQty.emit(changedProduct);
   }
 
   remove() {

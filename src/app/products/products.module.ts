@@ -10,6 +10,8 @@ import {
   TestCoreServicesComponent
 } from './components';
 import { ProductService } from './products.service';
+import { ProductObservableService } from './product-observable.service';
+import { ProductsAPIProvider } from './products.config';
 import { ProductsRoutingModule } from './products-routing.module';
 
 @NgModule({
@@ -29,6 +31,6 @@ import { ProductsRoutingModule } from './products-routing.module';
     ProductDetailComponent,
     TestCoreServicesComponent
   ],
-  providers: [ProductService]
+  providers: [ProductService, ProductsAPIProvider, ProductObservableService]
 })
 export class ProductsModule { }

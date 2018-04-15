@@ -4,8 +4,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { IProduct, Product } from '../../../shared/interfaces';
-import { ProductService } from '../../products.service';
-import { CartService } from '../../../core';
+import { ProductService } from '../../products.service'; // ---------------------------
+import { ProductObservableService } from '../../product-observable.service';
+import { CartPromiseService } from '../../../core';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,8 +20,9 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productsService: ProductService,
-    private cartService: CartService
+    private productsService: ProductService,  // ---------------------------
+    private productObservableService: ProductObservableService,
+    private cartPromiseService: CartPromiseService
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,7 @@ export class ProductDetailComponent implements OnInit {
 
     this.route.paramMap
       .pipe(
-        switchMap((params: Params) => this.productsService.getProduct(params.get('productId')))
+        switchMap((params: Params) => this.productObservableService.getProduct(params.get('productId')))
       )
       .subscribe(
         product => this.product = product,
@@ -37,7 +39,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   buy(): void {
-    this.cartService.addToCart(this.product);
+    this.cartPromiseService.addToCart(this.product);
     this.added.emit(true);
   }
 

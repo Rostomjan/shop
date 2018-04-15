@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { IProduct } from '../../../shared/interfaces';
-import { ProductService } from '../../products.service';
-import { CartService } from '../../../core/';
+import { ProductService } from '../../products.service'; // ---------------------------
+import { ProductObservableService } from '../../product-observable.service';
+import { CartPromiseService } from '../../../core/';
 
 @Component({
   selector: 'app-product-list',
@@ -18,17 +19,18 @@ export class ProductListComponent implements OnInit {
   products$: Observable<IProduct[]>;
 
   constructor(
-    private productService: ProductService,
-    private cartService: CartService,
+    private productService: ProductService,  // ---------------------------
+    private productObservableService: ProductObservableService,
+    private cartPromiseService: CartPromiseService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.products$ = this.productService.getProducts();
+    this.products$ = this.productObservableService.getProducts();
   }
 
   onBuy(product: IProduct): void {
-    this.cartService.addToCart(product);
+    this.cartPromiseService.addToCart(product);
     this.added.emit(true);
   }
 
