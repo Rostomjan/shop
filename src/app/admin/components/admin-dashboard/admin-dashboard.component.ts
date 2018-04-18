@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 
 import { IProduct } from '../../../shared/interfaces';
-import { ProductService } from '../../../products/products.service';   // ---------------------------
 import { ProductObservableService } from '../../../products/product-observable.service';
 
 @Component({
@@ -19,7 +18,6 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private productObservableService: ProductObservableService,
-    private productService: ProductService   // ---------------------------
   ) { }
 
   ngOnInit() {
@@ -31,7 +29,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteProduct(product: IProduct): void {
-    this.productObservableService.deleteProduct(product.id);
+    this.dataSource$ = this.productObservableService.deleteProduct(product.id);
   }
 
   editProduct(product: IProduct): void {

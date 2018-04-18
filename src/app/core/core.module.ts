@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
+  AppSettingService,
   AuthGuard,
   AuthService,
   CartPromiseService,
@@ -18,6 +19,7 @@ import {
   ],
   declarations: [],
   providers: [
+    AppSettingService,
     AuthGuard,
     AuthService,
     CartPromiseService,

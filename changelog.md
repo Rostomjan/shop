@@ -18,15 +18,22 @@ TASK 3:
 - created the BorderThemeDirective with using @Input(), ElementRef/Renderer2 and it was used on the ProductComponent;
 
 TASK 4:
-- Used uppercase, currency pipes in the ProductComponent;
+- used uppercase, currency pipes in the ProductComponent;
 - modified the ProductService using promises. Used async pipe in the ProductListComponent and CartListComponent;
 - created the "orderBy" pipe for sorting arrays with parameters - field of sorting and order;
 - registered the OrderByPipe in the SharedModule. Applied the "orderBy" pipe in the CartListComponent;
 
 TASK 5:
-- Added the routing to the Products module;
-- Added the route to the specific product and organazed the reviews section in the axillary router-outlet;
-- Added the routing to the Cart module;
-- Created the functionality to make an order in the cart;
-- Implemented the Admin module with functionality to manage the products. The Admin module is lazy-loaded if user is signed up;
-- Used the LocalStorageService to store ordered products;
+- added the routing to the Products module;
+- added the route to the specific product and organazed the reviews section in the axillary router-outlet;
+- added the routing to the Cart module;
+- created the functionality to make an order in the cart;
+- implemented the Admin module with functionality to manage the products. The Admin module is lazy-loaded if user is signed up;
+- used the LocalStorageService to store ordered products;
+
+TASK 6:
+- used the json-server;
+- created the ProductObservableService for working with the products;
+- created the CartPromiseService for working with the cart;
+- created the TimingInterceptor in the CoreModule which shows the duration of specific requests;
+- implemented the AppSettings service using the LocalStorageService or the "app-settings.json" file to load the settings into the local storage;

@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { IProduct, Product } from '../../../shared/interfaces';
-import { ProductService } from '../../products.service'; // ---------------------------
 import { ProductObservableService } from '../../product-observable.service';
 import { CartPromiseService } from '../../../core';
 
@@ -20,7 +19,6 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productsService: ProductService,  // ---------------------------
     private productObservableService: ProductObservableService,
     private cartPromiseService: CartPromiseService
   ) { }

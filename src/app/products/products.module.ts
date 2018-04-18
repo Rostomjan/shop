@@ -9,7 +9,7 @@ import {
   ReviewsComponent,
   TestCoreServicesComponent
 } from './components';
-import { ProductService } from './products.service';
+
 import { ProductObservableService } from './product-observable.service';
 import { ProductsAPIProvider } from './products.config';
 import { ProductsRoutingModule } from './products-routing.module';
@@ -31,6 +31,6 @@ import { ProductsRoutingModule } from './products-routing.module';
     ProductDetailComponent,
     TestCoreServicesComponent
   ],
-  providers: [ProductService, ProductsAPIProvider, ProductObservableService]
+  providers: [ProductsAPIProvider, ProductObservableService]
 })
 export class ProductsModule { }

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { map, catchError } from 'rxjs/operators';
 
-import { ProductService } from '../../products.service';  // ---------------------------
 import { ProductObservableService } from '../../product-observable.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class ReviewsComponent implements OnInit {
   constructor(
     private router: Router,
     private productObservableService: ProductObservableService,
-    private productsService: ProductService
   ) { }
 
   ngOnInit() {
@@ -27,7 +25,7 @@ export class ReviewsComponent implements OnInit {
       this.productObservableService.getProducts()
         .pipe(
           map(products => products.find(el => el.id === id)),
-          catchError(err => Observable.throw('There are not any reviews'))
+          catchError(() => Observable.throw('There are not any reviews'))
         )
         .subscribe(product => this.reviews = product ? product.reviews : false);
     }

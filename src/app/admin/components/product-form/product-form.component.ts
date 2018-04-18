@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
+import { Subscription } from 'rxjs/Subscription';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
-import { ProductService } from '../../../products/products.service';    // ---------------------------
 import { ProductObservableService } from '../../../products/product-observable.service';
 import { IProduct, Product } from '../../../shared/interfaces';
 
@@ -13,14 +13,14 @@ import { IProduct, Product } from '../../../shared/interfaces';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
   product: IProduct = new Product(null, null, null, null, null, null, null, null, null);
+  private sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productObservableService: ProductObservableService,
-    private productService: ProductService    // ---------------------------
   ) { }
 
   ngOnInit() {
@@ -33,11 +33,17 @@ export class ProductFormComponent implements OnInit {
         )
       )
       .subscribe(
-        product => {
+        (product: IProduct) => {
           return this.product = product ? product : new Product(null, null, null, null, null, null, null, null, null);
         },
         err => console.log(err)
       );
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   goBack(e: MouseEvent): void {
@@ -47,13 +53,16 @@ export class ProductFormComponent implements OnInit {
 
   saveProduct(e: MouseEvent): void {
     e.preventDefault();
-    if (this.product.id) {
-      this.productObservableService.updateProduct(this.product);
-      this.router.navigate(['admin']);
-    } else {
-      this.productObservableService.addProduct(this.product);
-      this.goBack(e);
-    }
-
+    const product: IProduct = {...this.product};
+    const method: string = product.id ? 'updateProduct' : 'addProduct';
+    this.sub = this.productObservableService[method](product)
+      .subscribe(
+        () => {
+          product.id
+            ? this.router.navigate(['admin'])
+            : this.goBack(e);
+        },
+        error => console.log(error)
+      );
   }
 }

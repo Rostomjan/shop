@@ -29,16 +29,16 @@ export class TestCoreServicesComponent implements OnInit {
   }
 
   getItem(item: string): void {
-    this.content = this.localStorageService.getItem(item);
+    this.content = LocalStorageService.getItem(item);
     this.localSt = localStorage;
   }
 
   setItem(item: string, val: string): void {
-    this.localStorageService.setItem(item, val);
+    LocalStorageService.setItem(item, val);
   }
 
   removeItem(item: string): void {
-    this.localStorageService.removeItem(item);
+    LocalStorageService.removeItem(item);
   }
 
   getConfig(): void {

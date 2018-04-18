@@ -16,8 +16,7 @@ export class CartListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private cartPromiseService: CartPromiseService,
-    private localStorageService: LocalStorageService
+    private cartPromiseService: CartPromiseService
   ) { }
 
   ngOnInit() {
@@ -44,7 +43,7 @@ export class CartListComponent implements OnInit {
   }
 
   checkout() {
-    this.localStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify([...this.products]));
+    LocalStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify([...this.products]));
     this.router.navigate(['/cart//checkout']);
   }
 

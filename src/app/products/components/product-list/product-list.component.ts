@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { IProduct } from '../../../shared/interfaces';
-import { ProductService } from '../../products.service'; // ---------------------------
 import { ProductObservableService } from '../../product-observable.service';
-import { CartPromiseService } from '../../../core/';
+import { CartPromiseService, AppSettingService } from '../../../core';
 
 @Component({
   selector: 'app-product-list',
@@ -19,14 +18,16 @@ export class ProductListComponent implements OnInit {
   products$: Observable<IProduct[]>;
 
   constructor(
-    private productService: ProductService,  // ---------------------------
     private productObservableService: ProductObservableService,
     private cartPromiseService: CartPromiseService,
+    private appSettingService: AppSettingService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.products$ = this.productObservableService.getProducts();
+
+    this.appSettingService.load().subscribe();
   }
 
   onBuy(product: IProduct): void {
