@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
+
+import { Store, select } from '@ngrx/store';
+import { AppState, CartState } from './../../../core/+store';
+import * as CartActions from './../../../core/+store/cart/cart.actions';
+
 import { IProduct } from '../../../shared/interfaces';
 import { CartPromiseService, LocalStorageService } from '../../../core';
 
@@ -14,12 +20,19 @@ export class CartListComponent implements OnInit {
   len: number;
   total: number;
 
+  cart$: Observable<CartState>;
+
   constructor(
     private router: Router,
-    private cartPromiseService: CartPromiseService
+    private cartPromiseService: CartPromiseService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
+    console.log('We have a store! ', this.store);
+    this.cart$ = this.store.pipe(select('cart'));
+    this.store.dispatch(new CartActions.GetCart());
+
     this.getCart().catch(err => console.log(err));
   }
 

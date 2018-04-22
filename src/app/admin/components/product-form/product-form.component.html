@@ -28,5 +28,5 @@
     <input matInput placeholder="Image Url" name="image" required [(ngModel)]="product.image">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="saveProduct($event)">Save</button><button mat-raised-button (click)="goBack($event)">Back</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="saveProduct()">Save</button><button mat-raised-button (click)="goBack()">Back</button>
 </form>

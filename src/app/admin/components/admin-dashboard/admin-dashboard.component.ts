@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Store, select } from '@ngrx/store';
+import { AppState, ProductsState, getTasksData } from './../../../core/+store';
+import * as ProductsActions from './../../../core/+store/products/products.actions';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import {Observable} from 'rxjs/Observable';
 
 import { IProduct } from '../../../shared/interfaces';
-import { ProductObservableService } from '../../../products/product-observable.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -16,25 +19,29 @@ export class AdminDashboardComponent implements OnInit {
   dataSource$: Observable<IProduct[]>;
 
   constructor(
-    private router: Router,
-    private productObservableService: ProductObservableService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.dataSource$ = this.productObservableService.getProducts();
+    this.dataSource$ = this.store.pipe(select(getTasksData));
+    this.store.dispatch(new ProductsActions.GetProducts());
   }
 
   addProduct(): void {
-    this.router.navigate(['/admin/add']);
+    this.store.dispatch(new RouterActions.Go({
+      path: ['/admin/add']
+    }));
   }
 
   deleteProduct(product: IProduct): void {
-    this.dataSource$ = this.productObservableService.deleteProduct(product.id);
+    this.store.dispatch(new ProductsActions.DeleteProduct(product.id));
   }
 
   editProduct(product: IProduct): void {
     const link = ['/admin/edit', product.id];
-    this.router.navigate(link);
+    this.store.dispatch(new RouterActions.Go({
+      path: link
+    }));
   }
 
 }

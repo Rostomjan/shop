@@ -13,6 +13,12 @@
     </ul>
   </div>
 
+  <div class="cart-wrapper">
+    <ul class="product-list" *ngFor="let product of (cart$ | async).data">
+      <app-cart-item [product]="product" (changedQty)="onChangedQty($event)" (removed)="onRemove($event)"></app-cart-item>
+    </ul>
+  </div>
+
   <mat-divider></mat-divider>
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="checkout()" disabled="{{!len}}">Proceed to Checkout</button>

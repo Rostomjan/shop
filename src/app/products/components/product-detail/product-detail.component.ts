@@ -1,10 +1,12 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 
-import { switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs/subscription';
 
-import { IProduct, Product } from '../../../shared/interfaces';
-import { ProductObservableService } from '../../product-observable.service';
+import { Store, select } from '@ngrx/store';
+import { AppState, ProductsState, getSelectedProductByUrl } from './../../../core/+store';
+import * as RouterActions from './../../../core/+store/router/router.actions';
+
+import { IProduct } from '../../../shared/interfaces';
 import { CartPromiseService } from '../../../core';
 
 @Component({
@@ -12,28 +14,23 @@ import { CartPromiseService } from '../../../core';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   @Output() added: EventEmitter<boolean> = new EventEmitter(true);
   product: IProduct;
+  sub: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private productObservableService: ProductObservableService,
-    private cartPromiseService: CartPromiseService
+    private cartPromiseService: CartPromiseService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.product = new Product(null, null, null, null, null, null, null, null, null);
+    this.sub = this.store.pipe(select(getSelectedProductByUrl))
+      .subscribe(el => this.product = el);
+  }
 
-    this.route.paramMap
-      .pipe(
-        switchMap((params: Params) => this.productObservableService.getProduct(params.get('productId')))
-      )
-      .subscribe(
-        product => this.product = product,
-        err => console.log(err)
-      );
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   buy(): void {
@@ -42,6 +39,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   showReviews() {
-    this.router.navigate([{ outlets: { popup: 'reviews' } }]);
+    this.store.dispatch(new RouterActions.Go({
+      path: [{ outlets: { popup: 'reviews' } }]
+    }));
   }
 }

@@ -1,10 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Store, select } from '@ngrx/store';
+import { AppState, ProductsState, getTasksData } from './../../../core/+store';
+import * as ProductsActions from './../../../core/+store/products/products.actions';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { Observable } from 'rxjs/Observable';
 
 import { IProduct } from '../../../shared/interfaces';
-import { ProductObservableService } from '../../product-observable.service';
 import { CartPromiseService, AppSettingService } from '../../../core';
 
 @Component({
@@ -15,18 +18,17 @@ import { CartPromiseService, AppSettingService } from '../../../core';
 export class ProductListComponent implements OnInit {
   @Output() added: EventEmitter<boolean> = new EventEmitter(true);
 
-  products$: Observable<IProduct[]>;
+  products$: Observable<ReadonlyArray<IProduct>>;
 
   constructor(
-    private productObservableService: ProductObservableService,
     private cartPromiseService: CartPromiseService,
     private appSettingService: AppSettingService,
-    private router: Router
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.products$ = this.productObservableService.getProducts();
-
+    this.products$ = this.store.pipe(select(getTasksData));
+    this.store.dispatch(new ProductsActions.GetProducts());
     this.appSettingService.load().subscribe();
   }
 
@@ -37,6 +39,8 @@ export class ProductListComponent implements OnInit {
 
   onDetail(product: IProduct): void {
     const link = ['/products', product.id];
-    this.router.navigate(link);
+    this.store.dispatch(new RouterActions.Go({
+      path: link
+    }));
   }
 }

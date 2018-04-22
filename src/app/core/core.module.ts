@@ -13,9 +13,12 @@ import {
   generateRandomSequence
 } from '.';
 
+import { CoreStoreModule } from './+store/core-store.module';
+
 @NgModule(<NgModule>{
   imports: [
-    CommonModule
+    CommonModule,
+    CoreStoreModule
   ],
   declarations: [],
   providers: [
@@ -26,7 +29,8 @@ import {
     ConfigOptionsService,
     {provide: ConstantsService, useValue: {app: 'ProductManager', ver: '1.0'}},
     {provide: GeneratorService, useValue: generateRandomSequence(10)},
-    LocalStorageService
+    LocalStorageService,
+    CoreStoreModule
   ]
 })
 export class CoreModule {

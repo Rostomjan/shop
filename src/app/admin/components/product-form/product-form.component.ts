@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { Store, select } from '@ngrx/store';
+import { AppState, ProductsState, getSelectedProductByUrl } from './../../../core/+store';
+import * as ProductsActions from './../../../core/+store/products/products.actions';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { Subscription } from 'rxjs/Subscription';
-import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
-import { ProductObservableService } from '../../../products/product-observable.service';
-import { IProduct, Product } from '../../../shared/interfaces';
+import { IProduct } from '../../../shared/interfaces';
 
 @Component({
   selector: 'app-product-form',
@@ -14,30 +15,16 @@ import { IProduct, Product } from '../../../shared/interfaces';
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
-  product: IProduct = new Product(null, null, null, null, null, null, null, null, null);
+  product: IProduct;
+
   private sub: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private productObservableService: ProductObservableService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.route.paramMap
-      .pipe(
-        switchMap(
-        (params: Params) => params.get('productId')
-          ? this.productObservableService.getProduct(params.get('productId'))
-          : of(null)
-        )
-      )
-      .subscribe(
-        (product: IProduct) => {
-          return this.product = product ? product : new Product(null, null, null, null, null, null, null, null, null);
-        },
-        err => console.log(err)
-      );
+    this.sub = this.store.pipe(select(getSelectedProductByUrl)).subscribe(el => this.product = el);
   }
 
   ngOnDestroy() {
@@ -46,23 +33,17 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  goBack(e: MouseEvent): void {
-    e.preventDefault();
-    this.router.navigate(['/admin']);
+  goBack(): void {
+    this.store.dispatch(new RouterActions.Back());
   }
 
-  saveProduct(e: MouseEvent): void {
-    e.preventDefault();
+  saveProduct(): void {
     const product: IProduct = {...this.product};
-    const method: string = product.id ? 'updateProduct' : 'addProduct';
-    this.sub = this.productObservableService[method](product)
-      .subscribe(
-        () => {
-          product.id
-            ? this.router.navigate(['admin'])
-            : this.goBack(e);
-        },
-        error => console.log(error)
-      );
+    product.id
+      ? this.store.dispatch(new ProductsActions.UpdateProduct(product))
+      : this.store.dispatch(new ProductsActions.CreateProduct(product));
+    product.id
+      ? this.store.dispatch(new RouterActions.Go({ path: ['admin'] }))
+      : this.goBack();
   }
 }

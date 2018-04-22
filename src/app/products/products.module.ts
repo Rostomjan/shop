@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects, productsReducer } from './../core/+store';
+
 import {
   ProductListComponent,
   ProductComponent,
@@ -24,7 +28,9 @@ import { ProductsRoutingModule } from './products-routing.module';
   ],
   imports: [
     SharedModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    StoreModule.forFeature('products', productsReducer),
+    EffectsModule.forFeature([ProductsEffects]),
   ],
   exports: [
     ProductListComponent,

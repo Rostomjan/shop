@@ -51,10 +51,10 @@ export class ProductObservableService {
       .pipe(map(this.handleData), catchError(this.handleError));
   }
 
-  deleteProduct(id: string): Observable<IProduct[]> {
+  deleteProduct(id: string): Observable<string> {
     return this.http.delete(`${this.productsUrl}/${id}`)
       .pipe(
-        concatMap(() => this.getProducts())
+        concatMap(() => [id])
       );
   }
 
