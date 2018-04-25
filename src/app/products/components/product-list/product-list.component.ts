@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, ProductsState, getTasksData } from './../../../core/+store';
+import { AppState, getProductsData } from '../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
 import * as RouterActions from './../../../core/+store/router/router.actions';
 
@@ -16,8 +16,6 @@ import { CartPromiseService, AppSettingService } from '../../../core';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  @Output() added: EventEmitter<boolean> = new EventEmitter(true);
-
   products$: Observable<ReadonlyArray<IProduct>>;
 
   constructor(
@@ -27,14 +25,13 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.products$ = this.store.pipe(select(getTasksData));
+    this.products$ = this.store.pipe(select(getProductsData));
     this.store.dispatch(new ProductsActions.GetProducts());
     this.appSettingService.load().subscribe();
   }
 
   onBuy(product: IProduct): void {
     this.cartPromiseService.addToCart(product);
-    this.added.emit(true);
   }
 
   onDetail(product: IProduct): void {

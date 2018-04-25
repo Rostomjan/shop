@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, CartState } from './../../../core/+store';
-import * as CartActions from './../../../core/+store/cart/cart.actions';
+import { AppState, getCart, getCartTotal, getCartLen } from '../../../core/+store';
+import * as CartActions from '../../../core/+store/cart/cart.actions';
+import * as RouterActions from '../../../core/+store/router/router.actions';
 
 import { IProduct } from '../../../shared/interfaces';
 import { CartPromiseService, LocalStorageService } from '../../../core';
@@ -17,50 +17,44 @@ import { CartPromiseService, LocalStorageService } from '../../../core';
 })
 export class CartListComponent implements OnInit {
   products: IProduct[];
-  len: number;
-  total: number;
-
-  cart$: Observable<CartState>;
+  cart$: Observable<IProduct[]>;
+  len$: Observable<number>;
+  total$: Observable<number>;
 
   constructor(
-    private router: Router,
     private cartPromiseService: CartPromiseService,
     private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    console.log('We have a store! ', this.store);
-    this.cart$ = this.store.pipe(select('cart'));
+    this.cart$ = this.store.pipe(select(getCart));
+    this.total$ = this.store.pipe(select(getCartTotal));
+    this.len$ = this.store.pipe(select(getCartLen));
+
     this.store.dispatch(new CartActions.GetCart());
-
-    this.getCart().catch(err => console.log(err));
-  }
-
-  onCartUpdate(): void {
-    this.getCart().catch(err => console.log(err));
   }
 
   onChangedQty(product: IProduct): void {
-    this.cartPromiseService.updateCart(product)
-      .then(() => this.getCart());
+    this.store.dispatch(new CartActions.UpdateCart(product));
   }
 
   onRemove(product: IProduct): void {
-    this.cartPromiseService.removeProduct(product)
-      .then(() => this.getCart());
+    this.store.dispatch(new CartActions.DeleteCartProduct(product));
   }
 
   clearCart(): void {
-    this.cartPromiseService.removeAll(this.products);
-    [this.len, this.total, this.products] = [0, 0, []];
+    let goods: IProduct[];
+    this.cart$.subscribe(products => goods = products);
+    this.store.dispatch(new CartActions.DeleteCart(goods));
   }
 
   checkout() {
-    LocalStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify([...this.products]));
-    this.router.navigate(['/cart//checkout']);
+    let orders;
+    this.cart$.subscribe(items => orders = items);
+    LocalStorageService.setItem('order-' + Math.random().toString(36).substr(7), JSON.stringify(orders));
+    this.store.dispatch(new RouterActions.Go({
+      path: ['/cart//checkout']
+    }));
   }
 
-  private async getCart() {
-    ( { products: this.products, len: this.len, total: this.total } = await this.cartPromiseService.receiveCartProducts() );
-  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, ProductsState, getSelectedProductByUrl } from './../../../core/+store';
+import { AppState, getSelectedProductByUrl } from '../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
 import * as RouterActions from './../../../core/+store/router/router.actions';
 
@@ -39,11 +39,12 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   saveProduct(): void {
     const product: IProduct = {...this.product};
-    product.id
-      ? this.store.dispatch(new ProductsActions.UpdateProduct(product))
-      : this.store.dispatch(new ProductsActions.CreateProduct(product));
-    product.id
-      ? this.store.dispatch(new RouterActions.Go({ path: ['admin'] }))
-      : this.goBack();
+    if (product.id) {
+      this.store.dispatch(new ProductsActions.UpdateProduct(product));
+      this.store.dispatch(new RouterActions.Go({ path: ['admin'] }));
+    } else {
+      this.store.dispatch(new ProductsActions.CreateProduct(product));
+      this.goBack();
+    }
   }
 }

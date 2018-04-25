@@ -40,7 +40,7 @@ export class ProductObservableService {
       .pipe(map(this.handleData), catchError(this.handleError));
   }
 
-  updateProduct(product: IProduct): Observable<IProduct[]> {
+  updateProduct(product: IProduct): Observable<IProduct> {
     const url = `${this.productsUrl}/${product.id}`;
     const body = JSON.stringify(product);
     const options = {

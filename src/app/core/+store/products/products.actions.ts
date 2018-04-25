@@ -1,6 +1,13 @@
 import { Action } from '@ngrx/store';
 import { IProduct } from '../../../shared/interfaces';
 
+declare module '@ngrx/store' {
+  interface Action {
+    type: string;
+    payload?: any;
+  }
+}
+
 export enum ProductsActionTypes {
   GET_PRODUCTS = '[Products] GET_PRODUCTS',
   GET_PRODUCTS_SUCCESS = '[Products] GET_PRODUCTS_SUCCESS',
@@ -40,7 +47,7 @@ export class UpdateProduct implements Action {
 
 export class UpdateProductSuccess implements Action {
   readonly type = ProductsActionTypes.UPDATE_PRODUCT_SUCCESS;
-  constructor(public payload: IProduct[]) {}
+  constructor(public payload: IProduct) {}
 }
 
 export class UpdateProductError implements Action {

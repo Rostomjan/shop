@@ -13,8 +13,21 @@ export class CartPromiseService {
     private http: HttpClient
   ) { }
 
+  static getQuantity(products: IProduct[]): number {
+    return products.reduce((qty, product) => (qty += product.quantity), 0);
+  }
+
+  static getTotal(products: IProduct[]): number {
+    return products.reduce((total, product) => (total += product.quantity * product.price), 0);
+  }
+
+  static handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
+
   addToCart(product: IProduct): void {
-    this.receiveCartProducts()
+    this.getCart()
       .then(response => response.products)
       .then(response => {
         if (response.every((item) => product.name !== item.name)) {
@@ -25,27 +38,20 @@ export class CartPromiseService {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })
           };
 
-        this.http
+        return this.http
           .post(url, body, options)
           .toPromise()
-          .catch(this.handleError);
+          .catch(CartPromiseService.handleError);
         } else {
           const existingProduct = response.find(item => product.name === item.name);
           existingProduct.quantity += 1;
-          this.updateCart(existingProduct);
+          return this.updateCart(existingProduct);
         }
-      });
+      })
+      .then(res => Promise.resolve(res));
   }
 
-  getQuantity(products: IProduct[]): number {
-    return products.reduce((qty, product) => (qty += product.quantity), 0);
-  }
-
-  getTotal(products: IProduct[]): number {
-    return products.reduce((total, product) => (total += product.quantity * product.price), 0);
-  }
-
-  updateCart(product: IProduct): Promise<IProduct> {
+  updateCart(product: IProduct): Promise<{ products: IProduct[], len: number, total: number }> {
     const url = `${this.cartUrl}/${product.id}`;
     const body = JSON.stringify(product);
     const options = {
@@ -55,37 +61,35 @@ export class CartPromiseService {
     return this.http
       .put(url, body, options)
       .toPromise()
-      .then(response => <IProduct>response)
-      .catch(this.handleError);
+      .then(() => this.getCart())
+      .catch(CartPromiseService.handleError);
   }
 
-  receiveCartProducts(): Promise<{ products: IProduct[], len: number, total: number }> {
+  getCart(): Promise<{ products: IProduct[], len: number, total: number }> {
     return this.http
       .get(this.cartUrl)
       .toPromise()
       .then(response => {
         return {
           products: <IProduct[]>response,
-          len: this.getQuantity(<IProduct[]>response),
-          total: this.getTotal(<IProduct[]>response)
+          len: CartPromiseService.getQuantity(<IProduct[]>response),
+          total: CartPromiseService.getTotal(<IProduct[]>response)
         };
       })
-      .catch(this.handleError);
+      .catch(CartPromiseService.handleError);
   }
 
-  removeProduct(product: IProduct): Promise<IProduct> {
+  removeProduct(product: IProduct): Promise<{ products: IProduct[], len: number, total: number }> {
     return this.http
       .delete(`${this.cartUrl}/${product.id}`)
       .toPromise()
-      .catch(this.handleError);
+      .then(() => this.getCart())
+      .catch(CartPromiseService.handleError);
   }
 
-  removeAll(products: IProduct[]): void {
+  removeAll(products: IProduct[]): Promise<{ products: IProduct[], len: number, total: number }> {
     products.forEach(product => this.removeProduct(product));
+    return Promise.resolve({ products: [], len: 0, total: 0 });
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
 }

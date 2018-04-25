@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
@@ -12,6 +12,7 @@ export class RouterEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private location: Location
   ) {}
 
@@ -20,7 +21,7 @@ export class RouterEffects {
     ofType<RouterActions.Go>(RouterActions.RouterActionTypes.GO),
     pluck('payload'),
       tap(({ path, queryParams, extras }) => {
-      this.router.navigate(path, { queryParams, ...extras });
+        this.router.navigate(path, { queryParams, ...extras });
     })
   );
 

@@ -1,11 +1,19 @@
 import { IProduct } from '../../../shared/interfaces';
 
 export interface CartState {
-  data: ReadonlyArray<IProduct>;
-  error: Error | string;
+  entities: ReadonlyArray<IProduct>;
+  readonly total: number;
+  readonly len: number;
+  readonly loading: boolean;
+  readonly loaded: boolean;
+  readonly error: Error | string;
 }
 
 export const initialCartState: CartState = {
-  data: [],
+  entities: [],
+  total: 0,
+  len: 0,
+  loading: false,
+  loaded: false,
   error: null
 };

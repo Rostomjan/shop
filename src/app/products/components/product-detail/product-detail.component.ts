@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs/subscription';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, ProductsState, getSelectedProductByUrl } from './../../../core/+store';
+import { AppState, getSelectedProductByUrl } from '../../../core/+store';
 import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { IProduct } from '../../../shared/interfaces';
@@ -15,7 +15,6 @@ import { CartPromiseService } from '../../../core';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  @Output() added: EventEmitter<boolean> = new EventEmitter(true);
   product: IProduct;
   sub: Subscription;
 
@@ -35,7 +34,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   buy(): void {
     this.cartPromiseService.addToCart(this.product);
-    this.added.emit(true);
   }
 
   showReviews() {

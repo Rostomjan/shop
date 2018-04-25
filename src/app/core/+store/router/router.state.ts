@@ -1,6 +1,5 @@
 import { Params, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-// @NgRx
 import { ActionReducerMap } from '@ngrx/store';
 import { RouterReducerState, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
 

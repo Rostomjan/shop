@@ -6,7 +6,7 @@ import * as ProductsActions from './products.actions';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { pluck, concatMap, switchMap, map, catchError } from 'rxjs/operators';
+import { pluck, switchMap, map, catchError } from 'rxjs/operators';
 
 import { ProductObservableService } from '../../../products/product-observable.service';
 import { IProduct } from '../../../shared/interfaces';

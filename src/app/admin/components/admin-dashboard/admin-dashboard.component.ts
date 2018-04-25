@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, ProductsState, getTasksData } from './../../../core/+store';
+import { AppState, getProductsData } from '../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
 import * as RouterActions from './../../../core/+store/router/router.actions';
 
@@ -23,7 +23,7 @@ export class AdminDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataSource$ = this.store.pipe(select(getTasksData));
+    this.dataSource$ = this.store.pipe(select(getProductsData));
     this.store.dispatch(new ProductsActions.GetProducts());
   }
 

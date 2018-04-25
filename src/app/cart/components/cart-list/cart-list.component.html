@@ -3,24 +3,18 @@
     <mat-panel-description>
       <mat-icon>shopping_cart</mat-icon>
       <button mat-button color="warn" (click)="clearCart()"><mat-icon>delete_forever</mat-icon><span>Clear</span></button>
-      <span>{{len}} {{len <= 1 ? 'item' : 'items'}} in your cart. Total: {{total | currency}}</span>
+      <span>{{len$ | async}} {{(len$ | async) <= 1 ? 'item' : 'items'}} in your cart. Total: {{total$ | async | currency}}</span>
     </mat-panel-description>
   </mat-expansion-panel-header>
 
   <div class="cart-wrapper">
-    <ul class="product-list" *ngFor="let product of products | orderBy: 'quantity' : false">
-      <app-cart-item [product]="product" (changedQty)="onChangedQty($event)" (removed)="onRemove($event)"></app-cart-item>
-    </ul>
-  </div>
-
-  <div class="cart-wrapper">
-    <ul class="product-list" *ngFor="let product of (cart$ | async).data">
+    <ul class="product-list" *ngFor="let product of cart$ | async | orderBy: 'quantity' : false">
       <app-cart-item [product]="product" (changedQty)="onChangedQty($event)" (removed)="onRemove($event)"></app-cart-item>
     </ul>
   </div>
 
   <mat-divider></mat-divider>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="checkout()" disabled="{{!len}}">Proceed to Checkout</button>
+    <button mat-raised-button color="primary" (click)="checkout()" disabled="{{!(len$ | async)}}">Proceed to Checkout</button>
   </mat-card-actions>
 </mat-expansion-panel>

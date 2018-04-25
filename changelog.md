@@ -37,3 +37,8 @@ TASK 6:
 - created the CartPromiseService for working with the cart;
 - created the TimingInterceptor in the CoreModule which shows the duration of specific requests;
 - implemented the AppSettings service using the LocalStorageService or the "app-settings.json" file to load the settings into the local storage;
+
+TASK 7:
+- used @ngrx/store, @ngrx/effects for the ProductsModule / CartModule ;
+- implemented the routing functionality usining @ngrx/router-store;
+- used @ngrx/entity for products;
