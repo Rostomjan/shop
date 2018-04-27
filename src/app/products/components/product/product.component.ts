@@ -1,16 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
-import { Product } from '../../../shared/interfaces';
+import { IProduct } from '../../../shared/interfaces';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements OnInit {
-  @Input() product: Product;
-  @Output() selected: EventEmitter<Product> = new EventEmitter();
-  @Output() detailed: EventEmitter<Product> = new EventEmitter();
+  @Input() product: IProduct;
+  @Output() selected: EventEmitter<IProduct> = new EventEmitter();
+  @Output() detailed: EventEmitter<IProduct> = new EventEmitter();
 
   constructor() { }
 

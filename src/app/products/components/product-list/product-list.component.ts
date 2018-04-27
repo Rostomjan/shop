@@ -1,11 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import { Store, select } from '@ngrx/store';
+import { AppState, getProductsData } from '../../../core/+store';
+import * as ProductsActions from './../../../core/+store/products/products.actions';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { Observable } from 'rxjs/Observable';
 
 import { IProduct } from '../../../shared/interfaces';
-import { ProductService } from '../../products.service';
-import { CartService } from '../../../core/';
+import { CartPromiseService, AppSettingService } from '../../../core';
 
 @Component({
   selector: 'app-product-list',
@@ -13,27 +16,28 @@ import { CartService } from '../../../core/';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  @Output() added: EventEmitter<boolean> = new EventEmitter(true);
-
-  products$: Observable<IProduct[]>;
+  products$: Observable<ReadonlyArray<IProduct>>;
 
   constructor(
-    private productService: ProductService,
-    private cartService: CartService,
-    private router: Router
+    private cartPromiseService: CartPromiseService,
+    private appSettingService: AppSettingService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.products$ = this.productService.getProducts();
+    this.products$ = this.store.pipe(select(getProductsData));
+    this.store.dispatch(new ProductsActions.GetProducts());
+    this.appSettingService.load().subscribe();
   }
 
   onBuy(product: IProduct): void {
-    this.cartService.addToCart(product);
-    this.added.emit(true);
+    this.cartPromiseService.addToCart(product);
   }
 
   onDetail(product: IProduct): void {
     const link = ['/products', product.id];
-    this.router.navigate(link);
+    this.store.dispatch(new RouterActions.Go({
+      path: link
+    }));
   }
 }

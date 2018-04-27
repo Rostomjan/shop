@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,14 +15,14 @@ export class HeaderComponent implements OnInit {
     { label: 'Cart', path: 'cart', icon: 'add_shopping_cart' }
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   onDeactivate($event) {
-    if ($event.route && $event.route.component.name === 'ProductDetailComponent') {
-      $event.router.navigateByUrl($event.router.url.split('(')[0]);
+    if ($event.constructor.name === 'ProductDetailComponent') {
+      this.router.navigateByUrl(this.router.url.split('(')[0]);
     }
   }
 

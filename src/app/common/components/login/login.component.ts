@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { AppState } from './../../../core/+store';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
-    public router: Router
+    public store: Store<AppState>
   ) {}
 
   ngOnInit() {
@@ -40,7 +42,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         const redirect = this.authService.redirectUrl
           ? this.authService.redirectUrl : '/admin';
 
-        this.router.navigate([redirect]);
+
+        this.store.dispatch(new RouterActions.Go({
+          path: [redirect]
+        }));
       }
     });
   }

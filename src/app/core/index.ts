@@ -1,5 +1,6 @@
+export * from './services/app-setting.service';
 export * from './services/auth.service';
-export * from './services/cart.service';
+export * from './services/cart-promise.service';
 export * from './services/config-options.service';
 export * from './services/constants.service';
 export * from './services/generator.service';
