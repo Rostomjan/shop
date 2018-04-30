@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { switchMap, pluck } from 'rxjs/operators';
+import { switchMap, concatMap, pluck } from 'rxjs/operators';
 
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -35,7 +35,7 @@ export class CartEffects {
   updateCart$: Observable<Action> = this.actions$.pipe(
     ofType<CartActions.UpdateCart>(CartActions.CartActionTypes.UPDATE_CART),
     pluck('payload'),
-    switchMap(
+    concatMap(
       (payload: IProduct) =>
         this.cartPromiseService
           .updateCart(payload)
@@ -48,7 +48,7 @@ export class CartEffects {
   deleteCartProduct$: Observable<Action> = this.actions$.pipe(
     ofType<CartActions.DeleteCartProduct>(CartActions.CartActionTypes.DELETE_CART_PRODUCT),
     pluck('payload'),
-    switchMap(
+    concatMap(
       (payload: IProduct) =>
         this.cartPromiseService
           .removeProduct(payload)
@@ -61,7 +61,7 @@ export class CartEffects {
   deleteCart$: Observable<Action> = this.actions$.pipe(
     ofType<CartActions.DeleteCart>(CartActions.CartActionTypes.DELETE_CART),
     pluck('payload'),
-    switchMap(
+    concatMap(
       (payload: IProduct[]) =>
         this.cartPromiseService
           .removeAll(payload)
