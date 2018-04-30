@@ -6,7 +6,7 @@ import * as ProductsActions from './products.actions';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { pluck, switchMap, map, catchError } from 'rxjs/operators';
+import { pluck, switchMap, concatMap, map, catchError } from 'rxjs/operators';
 
 import { ProductObservableService } from '../../../products/product-observable.service';
 import { IProduct } from '../../../shared/interfaces';
@@ -36,7 +36,7 @@ export class ProductsEffects {
   updateProduct$: Observable<Action> = this.actions$.pipe(
     ofType<ProductsActions.UpdateProduct>(ProductsActions.ProductsActionTypes.UPDATE_PRODUCT),
     pluck('payload'),
-    switchMap((payload: IProduct) =>
+    concatMap((payload: IProduct) =>
         this.productObservableService
           .updateProduct(payload)
           .pipe(
@@ -50,7 +50,7 @@ export class ProductsEffects {
   createProduct$: Observable<Action> = this.actions$.pipe(
     ofType<ProductsActions.CreateProduct>(ProductsActions.ProductsActionTypes.CREATE_PRODUCT),
     pluck('payload'),
-    switchMap((payload: IProduct) =>
+    concatMap((payload: IProduct) =>
         this.productObservableService
           .addProduct(payload)
           .pipe(
@@ -64,7 +64,7 @@ export class ProductsEffects {
   deleteProduct$: Observable<Action> = this.actions$.pipe(
     ofType<ProductsActions.DeleteProduct>(ProductsActions.ProductsActionTypes.DELETE_PRODUCT),
     pluck('payload'),
-    switchMap((payload: string) =>
+    concatMap((payload: string) =>
         this.productObservableService
           .deleteProduct(payload)
           .pipe(
