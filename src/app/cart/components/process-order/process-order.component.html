@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-title>Order Page</mat-card-title>
+  <mat-card-content>{{message}}</mat-card-content>
+
+  <form [formGroup]="orderForm"
+        (ngSubmit)="order()">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Name" formControlName="name">
+      <mat-error *ngIf="orderForm.get('name').invalid"></mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput type="email" placeholder="Email" formControlName="email">
+      <mat-error *ngIf="orderForm.get('email').invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="basic" type="button" (click)="addPhone()">Add a new phone</button>
+
+    <div formArrayName="phones"
+      *ngFor="let phone of phones.controls; let i = index" >
+      <mat-form-field [formGroupName]="i">
+        <mat-icon matPrefix>phone</mat-icon>
+        <input matInput id="{{'phone' + i}}" type="text" placeholder="Phone Number" formControlName="phone">
+        <button matSuffix mat-raised-button id="{{'delete-btn' + i}}" color="warn" type="button" (click)="deletePhone(i)">Delete</button>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button type="submit" color="primary" [disabled]="!orderForm.valid">Order</button>
+  </form>
+
+</mat-card>

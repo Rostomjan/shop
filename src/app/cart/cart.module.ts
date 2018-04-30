@@ -6,7 +6,7 @@ import { CartEffects, cartReducer } from './../core/+store';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { CartListComponent, CartItemComponent, CartComponent, CheckoutComponent } from './components';
+import { CartListComponent, CartItemComponent, CartComponent, ProcessOrderComponent } from './components';
 import { CartRoutingModule } from './cart-routing.module';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { CartRoutingModule } from './cart-routing.module';
     CartComponent,
     CartListComponent,
     CartItemComponent,
-    CheckoutComponent
+    ProcessOrderComponent
   ],
   imports: [
     SharedModule,
