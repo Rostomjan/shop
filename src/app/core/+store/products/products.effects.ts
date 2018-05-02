@@ -22,7 +22,7 @@ export class ProductsEffects {
   @Effect()
   getProducts$: Observable<Action> = this.actions$.pipe(
     ofType<ProductsActions.GetProducts>(ProductsActions.ProductsActionTypes.GET_PRODUCTS),
-    switchMap(action =>
+    switchMap(() =>
         this.productObservableService
           .getProducts()
           .pipe(

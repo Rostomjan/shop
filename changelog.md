@@ -39,6 +39,12 @@ TASK 6:
 - implemented the AppSettings service using the LocalStorageService or the "app-settings.json" file to load the settings into the local storage;
 
 TASK 7:
-- used @ngrx/store, @ngrx/effects for the ProductsModule / CartModule ;
+- used @ngrx/store, @ngrx/effects for the ProductsModule / CartModule;
 - implemented the routing functionality usining @ngrx/router-store;
 - used @ngrx/entity for products;
+
+TASK 8:
+- created the ProcessOrderComponent using reactive approach;
+- added the validation for the fullName / email / phone fields;
+- implemented the functionality for adding or deleting the additional phone numbers;
+- displayed the validation messages;

@@ -23,7 +23,7 @@ export class CartEffects {
   getCart$: Observable<Action> = this.actions$.pipe(
     ofType<CartActions.GetCart>(CartActions.CartActionTypes.GET_CART),
     switchMap(
-      (action: CartActions.GetCart) =>
+      () =>
       this.cartPromiseService
         .getCart()
         .then(cart => new CartActions.GetCartSuccess(cart))
