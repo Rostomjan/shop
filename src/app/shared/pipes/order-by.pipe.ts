@@ -24,27 +24,11 @@ export class OrderByPipe implements PipeTransform {
         });
         break;
       case 'brand':
-        flag ? arr.sort((a: IProduct, b: IProduct): number => {
-          if (a.brand < b.brand) {
-            return -1;
-          }
-          if (a.brand > b.brand) {
-            return 1;
-          }
-          return 0;
-        })
-        : arr.sort((a: IProduct, b: IProduct): number => {
-          if (a.brand > b.brand) {
-            return -1;
-          }
-          if (a.brand < b.brand) {
-            return 1;
-          }
-          return 0;
+        arr.sort((a: IProduct, b: IProduct): number => {
+          return flag ? a.brand.localeCompare(b.brand)
+            : b.brand.localeCompare(a.brand);
         });
         break;
-      default:
-        return [];
     }
     return arr;
   }
