@@ -39,8 +39,6 @@ describe('ProductComponent', () => {
   });
 
   it('should display uppercase title', () => {
-    console.log('productElm', productElm);
-    console.log('productElm.nativeElement.textContent', productElm.nativeElement.textContent);
     const productSubTitle = <DebugElement>productElm.childNodes.find((el: DebugElement) => el.name === 'mat-card-subtitle');
 
     expect(productSubTitle.nativeElement.textContent).toBe('Category: VITAMINS');

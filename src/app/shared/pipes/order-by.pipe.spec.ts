@@ -1,7 +1,7 @@
 import { OrderByPipe } from './order-by.pipe';
 import { IProduct, ECategories } from '../interfaces';
 
-const products: IProduct[] = [{
+const mockProducts: IProduct[] = [{
   id: '883elrnbba',
   name: '',
   description: '',
@@ -50,37 +50,37 @@ const products: IProduct[] = [{
 describe('OrderByPipe', () => {
   const pipe = new OrderByPipe();
 
-  it('empty', () => {
+  it('should be empty', () => {
     expect(pipe.transform([], 'price')).toEqual([]);
   });
 
-  it('incrementing order by price', () => {
-    const actual = pipe.transform(products, 'price', true);
+  it('should sort by price in asc order', () => {
+    const actual = pipe.transform(mockProducts, 'price', true);
     expect(actual[0].price).toBe(18.05);
   });
 
-  it('decrementing order by price', () => {
-    const actual = pipe.transform(products, 'price', false);
+  it('should sort by price in desc order', () => {
+    const actual = pipe.transform(mockProducts, 'price', false);
     expect(actual[0].price).toBe(23.97);
   });
 
-  it('incrementing order by quantity', () => {
-    const actual = pipe.transform(products, 'quantity', true);
+  it('should sort by quantity in asc order', () => {
+    const actual = pipe.transform(mockProducts, 'quantity', true);
     expect(actual[0].quantity).toBe(1);
   });
 
-  it('decrementing order by quantity', () => {
-    const actual = pipe.transform(products, 'quantity', false);
+  it('should sort by quantity in desc order', () => {
+    const actual = pipe.transform(mockProducts, 'quantity', false);
     expect(actual[0].quantity).toBe(7);
   });
 
-  it('incrementing order by brand', () => {
-    const actual = pipe.transform(products, 'brand', true);
+  it('should sort by brand in asc order', () => {
+    const actual = pipe.transform(mockProducts, 'brand', true);
       expect(actual[0].brand).toBe('BSN');
   });
 
-  it('decrementing order by brand', () => {
-    const actual = pipe.transform(products, 'brand', false);
+  it('should sort by brand in desc order', () => {
+    const actual = pipe.transform(mockProducts, 'brand', false);
     expect(actual[0].brand).toBe('Natural Vitality');
   });
 });

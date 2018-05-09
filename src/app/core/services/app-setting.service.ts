@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { LocalStorageService } from './local-storage.service';
 import {_throw} from 'rxjs/observable/throw';
 import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AppSettingService {
@@ -14,7 +15,7 @@ export class AppSettingService {
     private http: HttpClient
   ) { }
 
-  load = () => {
+  load = (): Observable<any> => {
     const settings = LocalStorageService.getItem('settings');
 
     if (!settings) {

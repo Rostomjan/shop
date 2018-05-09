@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
   constructor(
@@ -22,6 +22,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.setPageTitlesAndMeta();
+  }
+  
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }    
   }
 
   private setPageTitlesAndMeta() {

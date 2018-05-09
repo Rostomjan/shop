@@ -2,6 +2,8 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
+  const isCoverage = config.coverage || false;
+  
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
@@ -20,7 +22,8 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
     angularCli: {
-      environment: 'dev'
+      environment: 'dev',
+      codeCoverage: isCoverage
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
