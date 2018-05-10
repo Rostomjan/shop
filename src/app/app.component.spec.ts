@@ -3,8 +3,6 @@ import { NO_ERRORS_SCHEMA, Injectable } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { AppComponent } from './app.component';

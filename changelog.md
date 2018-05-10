@@ -48,3 +48,10 @@ TASK 8:
 - added the validation for the fullName / email / phone fields;
 - implemented the functionality for adding or deleting the additional phone numbers;
 - displayed the validation messages;
+
+TASK 9:
+- created intergation unit tests for the ProductComponent and ProductListComponent;
+- created isolated unit test for the ProductObservableService;
+- created isolated unit test for the OrderByPipe;
+- created shallow unit test for the AppComponent;
+- generated the coverage report;

@@ -1,14 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AppState, getProductsData } from '../../../core/+store';
+import { AppState } from '../../../core/+store';
 import { ProductsEffects, productsReducer } from '../../../core/+store';
 import * as ProductsActions from './../../../core/+store/products/products.actions';
-import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';

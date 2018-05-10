@@ -3,7 +3,7 @@
 
 module.exports = function (config) {
   const isCoverage = config.coverage || false;
-  
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
