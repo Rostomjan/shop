@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  text-align: center;
+}
+
+.mat-card {
+  height: 85vh;
+}
+
+.mat-form-field {
+  display: block;
+}
+
+.address-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 3fr;
+}
+
+.address-group .mat-form-field {
+  display: inline-block;
+}

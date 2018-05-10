@@ -16,7 +16,7 @@ import { CartPromiseService, AppSettingService } from '../../../core';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  products$: Observable<ReadonlyArray<IProduct>>;
+  products$: Observable<Array<IProduct>>;
 
   constructor(
     private cartPromiseService: CartPromiseService,

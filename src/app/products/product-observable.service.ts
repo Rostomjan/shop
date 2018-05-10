@@ -35,7 +35,6 @@ export class ProductObservableService {
   }
 
   getProduct(id: string): Observable<IProduct> {
-
     return this.http.get(`${this.productsUrl}/${id}`)
       .pipe(map(this.handleData), catchError(this.handleError));
   }
