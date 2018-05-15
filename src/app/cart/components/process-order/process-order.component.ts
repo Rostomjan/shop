@@ -60,10 +60,9 @@ export class ProcessOrderComponent implements OnInit, OnDestroy {
     });
   }
 
-  private buildPhone(): FormGroup {
-    return this.fb.group({
-      phone: new FormControl('', {validators: [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)], updateOn: 'blur'}),
-    });
+  private buildPhone(): FormControl {
+    return this.fb.control(
+      '', [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)]);
   }
 
   private watchValueChanges(): void {

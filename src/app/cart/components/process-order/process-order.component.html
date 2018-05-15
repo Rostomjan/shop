@@ -33,9 +33,9 @@
 
     <div formArrayName="phones"
       *ngFor="let phone of phones.controls; let i = index" >
-      <mat-form-field [formGroupName]="i">
+      <mat-form-field>
         <mat-icon matPrefix>phone</mat-icon>
-        <input matInput id="{{'phone' + i}}" type="text" placeholder="Phone Number (format XXX-XXX-XXXX)" formControlName="phone">
+        <input matInput id="{{'phone' + i}}" type="text" placeholder="Phone Number (format XXX-XXX-XXXX)" formControlName="{{i}}">
         <button matSuffix mat-raised-button id="{{'delete-btn' + i}}" color="warn" type="button" (click)="deletePhone(i)">Delete</button>
         <mat-error *ngIf="phoneMessage">{{phoneMessage}}</mat-error>
       </mat-form-field>
