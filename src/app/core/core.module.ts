@@ -28,9 +28,8 @@ import { CoreStoreModule } from './+store/core-store.module';
     CartPromiseService,
     ConfigOptionsService,
     {provide: ConstantsService, useValue: {app: 'ProductManager', ver: '1.0'}},
-    {provide: GeneratorService, useValue: generateRandomSequence(10)},
-    LocalStorageService,
-    CoreStoreModule
+    {provide: GeneratorService, useFactory: () => generateRandomSequence(10)},
+    LocalStorageService
   ]
 })
 export class CoreModule {
